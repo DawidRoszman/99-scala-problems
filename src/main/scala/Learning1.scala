@@ -3,7 +3,7 @@ val arr2 = List(1, 2, 2, 1)
 
 @main
 def Main(): Unit = {
-  println(listPalindrome(arr2))
+  println(Erastotenes(30))
 }
 
 //P01 (*) Find the last element of a list.
@@ -93,10 +93,33 @@ def listPalindrome[A](list: List[A]): Boolean = {
 //   case _ => 0
 // }
 //P32 (*) Determine the greatest common divisor of two positive integer numbers.
-
+def NWD(a: Int, b: Int): Int = if (a == 0) then b else NWD(b % a, a)
 //P39 (*) A list of prime numbers.
 
-//P49 (**) Gray code.
+def Erastotenes(n: Int): List[Int] = {
+  val list = (2 to n).toList
+  def go(n: Int, akumulator: List[Int], ogList: List[Int]): List[Int] = {
+    (ogList, akumulator) match {
+      case (Nil, _) => akumulator
+      case (head :: tail, _) => go(n, akumulator.appended(head), tail.filter(_ % head != 0))
+    }
+  }
+  go(n, List(), list)
+}
+// Krok 1: n = 10, akumulator = [], ogList = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+// head = 2, tail = [3, 4, 5, 6, 7, 8, 9, 10]
+// Krok 2: n = 10, akumulator = [2], ogList = [3, 4, 5, 6, 7, 8, 9, 10]
+// head = 3, tail = [4, 5, 6, 7, 8, 9, 10]
+// Krok 3: n = 10, akumulator = [2, 3], ogList = [4, 5, 6, 7, 8, 9, 10]
+// head = 4, tail = [5, 6, 7, 8, 9, 10]
+// Krok 4: n = 10, akumulator = [2, 3, 5], ogList = [6, 7, 8, 9, 10]
+// head = 6, tail = [7, 8, 9, 10]
+// Krok 5: n = 10, akumulator = [2, 3, 5, 7], ogList = [8, 9, 10]
+// head = 8, tail = [9, 10]
+// Krok 6: n = 10, akumulator = [2, 3, 5, 7, 9], ogList = [10]
+// head = 10, tail = []
+// Krok 7: n = 10, akumulator = [2, 3, 5, 7, 9, 10], ogList = []
+//Zwracamy akumulator
 
 def lepszaSilnia2(n: Int, akumulator: Int = 1): Int = {
   @annotation.tailrec
