@@ -75,14 +75,14 @@ def funDomyslna(n: Int = 1): Unit = println("#" * n)
 //   }
 // }
 
-def lepszaSilnia2(n: Int, akumulator: Int = 1): Int = {
-  @annotation.tailrec
-  def go(n: Int, akumulator: Int): Int = n match {
-    case 1 => akumulator
-    case _ => go(n - 1, akumulator * n)
-  }
-  go(n, akumulator)
-}
+// def lepszaSilnia2(n: Int, akumulator: Int = 1): Int = {
+//   @annotation.tailrec
+//   def go(n: Int, akumulator: Int): Int = n match {
+//     case 1 => akumulator
+//     case _ => go(n - 1, akumulator * n)
+//   }
+//   go(n, akumulator)
+// }
 
 @main def mainSilniaTail: Unit = {
   val wynik = lepszaSilnia2(5)
